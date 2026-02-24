@@ -1,0 +1,148 @@
+% Fonts and symbols
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb,amsmath,latexsym,stmaryrd}
+\usepackage{mathtools}
+% Line-wrapping a figure
+\usepackage{wrapfig}
+% Float control
+\usepackage{caption}
+\captionsetup{font=small}
+% Subfigures
+\usepackage{subcaption}
+% References and environments
+\usepackage{hyperref}
+% Automatic classification of references
+\usepackage[nameinlink]{cleveref}
+% Flexible itemize-like environments
+\usepackage[inline]{enumitem}
+%
+\newenvironment{inumerate}{%
+  \begin{enumerate*}[label=\emph{(\roman*)}]
+}{%
+  \end{enumerate*}
+}
+\usepackage{graphicx}
+% Commenting out stuff
+\usepackage{comment}
+% Layouting
+\usepackage{xspace}
+% Restatable theorems
+\usepackage{thmtools,thm-restate}
+
+% Decrease space
+\setlength{\abovedisplayskip}{5mm}
+\setlength{\belowdisplayskip}{5mm}
+\setlength{\textfloatsep}{5mm}
+\setlength{\intextsep}{5mm}
+
+% enumitem layout within theorem environments
+\SetEnumitemKey{smallsep}{topsep=\smallskipamount, itemsep=0pt}
+
+% Typing
+\newcommand{\of}{\colon}
+% Partial function
+\newcommand{\pto}{\hookrightarrow}
+% Domain and image
+\newcommand{\dom}{\mathop{\mathrm{dom}}}
+\newcommand{\img}{\mathop{\mathrm{img}}}
+% Powerset
+\newcommand{\pow}[1]{\mathbf{2}^{#1}}
+% Tuple of
+\newcommand{\tupof}[1]{\langle{#1}\rangle}
+% Set of
+\newcommand{\setof}[1]{\{{#1}\}}
+% Generative set of
+\newcommand{\gensetof}[2]{\setof{{#1}\mid{#2}}}
+% Powerset
+\newcommand{\power}[1]{2^{#1}}
+% Infinite sequences superscript
+\newcommand{\infseq}{^{\omega}}
+% Finite sequences superscript
+\newcommand{\finseq}{^{{}{\scriptscriptstyle<}\omega}}
+% Finite or infinite sequences superscript
+\newcommand{\finfseq}{^{{}{\scriptscriptstyle\leq}\omega}}
+
+% Sequence concatenation
+\newcommand{\cc}{{\mathbin\cdot}}
+% Projection of a sequence to an element
+\newcommand{\proj}[1]{{|_{#1}}}
+% Last element of a sequence
+\newcommand{\last}{{\mskip1mu\triangleright}}
+% Prefix and inverse prefix relation
+\newcommand{\prf}{\prec}
+\newcommand{\prfeq}{\preceq}
+\newcommand{\iprf}{\succ}
+\newcommand{\iprfeq}{\succeq}
+% Empty string
+\newcommand{\emptystr}{\epsilon}
+% Satisfaction
+\newcommand{\sat}{\models}
+% Defines symbol
+\newcommand{\iffdef}{\mathrel{{:}{\Leftrightarrow}}}
+% Semantics
+\newcommand{\sem}[1]{[\![{#1}]\!]}
+
+\newcommand{\Nat}{{\mathbb{N}}}
+\newcommand{\Bool}{{\mathbb{B}}}
+
+\newcommand{\ttt}{\mathbf{1}}
+\newcommand{\fff}{\mathbf{0}}
+
+% Typeset the label of an extensible arrow by lowering the text
+\newcommand{\lowerlabel}[1]{\smash{\mathchoice
+		{\raisebox{-1.5pt}{$\scriptstyle#1$}}
+		{\raisebox{-1.5pt}{$\scriptstyle#1$}}
+		{\raisebox{-1pt}{$\scriptstyle#1$}}
+		{\raisebox{-1pt}{$\scriptscriptstyle#1$}}
+}}
+% Typeset the label of an extensible arrow by lowering the text further
+\newcommand{\lowerlabelx}[1]{\smash{\mathchoice
+		{\raisebox{-3pt}{$\scriptstyle#1$}}
+		{\raisebox{-3pt}{$\scriptstyle#1$}}
+		{\raisebox{-2pt}{$\scriptstyle#1$}}
+		{\raisebox{-2pt}{$\scriptscriptstyle#1$}}
+}}
+% Typeset the lower label of an extensible arrow by raising the text
+\newcommand{\raiselabel}[1]{\smash{\mathchoice
+		{\raisebox{1.5pt}{$\scriptstyle#1$}}
+		{\raisebox{1.5pt}{$\scriptstyle#1$}}
+		{\raisebox{1pt}{$\scriptstyle#1$}}
+		{\raisebox{1pt}{$\scriptscriptstyle#1$}}
+}}
+% Typeset the lower label of an extensible arrow by raising the text further
+\newcommand{\raiselabelx}[1]{\smash{\mathchoice
+		{\raisebox{3pt}{$\scriptstyle#1$}}
+		{\raisebox{3pt}{$\scriptstyle#1$}}
+		{\raisebox{2pt}{$\scriptstyle#1$}}
+		{\raisebox{2pt}{$\scriptscriptstyle#1$}}
+}}
+% Typeset the lower label of an extensible arrow by raising the text even further
+\newcommand{\raiselabelxx}[1]{\smash{\mathchoice
+		{\raisebox{4.5pt}{$\scriptstyle#1$}}
+		{\raisebox{4.5pt}{$\scriptstyle#1$}}
+		{\raisebox{3pt}{$\scriptstyle#1$}}
+		{\raisebox{3pt}{$\scriptscriptstyle#1$}}
+}}
+
+% Prepend a negation to an extensible arrow
+\newcommand{\xarrownot}{\mathrel{\arrownot-}\mkern-7mu}
+
+% single-arrow transition
+\newcommand{\trans}[2][\,]{\mathrel{\mathchoice
+  {\inlinetrans[#1]{#2}}%
+  {\inlinetrans[#1]{#2}}%
+  {\inlinetrans[#1]{#2}}%
+  {\inlinetrans[#1]{#2}}%
+}}
+\newcommand{\inlinetrans}[2][\,]{\mathrel{%
+  \smash{\xrightarrow{\lowerlabel{#2}}_{\!#1}}%
+  \vphantom{\xrightarrow{\lowerlabel{#2}}}%
+}}
+\newcommand{\displaytrans}[2][\,]{\mathrel{%
+  \smash{\xrightarrow{\lowerlabel{#2}}_{\!#1}}%
+  \vphantom{\xrightarrow{X}}%
+}}
+% negative single-arrow transition
+\newcommand{\ntrans}[2][\,]{\mathrel{\not\trans{#2}}_{\!#1}}
