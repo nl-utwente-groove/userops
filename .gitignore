@@ -1,0 +1,7 @@
+/paper.pdf
+/paper.synctex.gz
+/*.out
+/*.aux
+/*.log
+/code/user/bin
+/code/user/target
