@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <gxl xmlns="http://www.gupro.de/GXL/gxl-1.0.dtd">
-    <graph role="rule" edgeids="false" edgemode="directed" id="use">
+    <graph role="rule" edgeids="false" edgemode="directed" id="age">
         <attr name="$version">
             <string>curly</string>
         </attr>
         <node id="n0">
             <attr name="layout">
-                <string>144 199 232 36</string>
+                <string>124 138 186 36</string>
             </attr>
         </node>
         <edge from="n0" to="n0">
             <attr name="label">
-                <string>type:Date</string>
+                <string>cnew:let:age=daysSince(self.birthday)</string>
             </attr>
         </edge>
         <edge from="n0" to="n0">
             <attr name="label">
-                <string>new:let:since=user:since(day,month,year)</string>
+                <string>type:Person</string>
             </attr>
         </edge>
     </graph>

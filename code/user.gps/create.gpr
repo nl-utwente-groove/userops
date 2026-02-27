@@ -1,107 +1,97 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <gxl xmlns="http://www.gupro.de/GXL/gxl-1.0.dtd">
-    <graph role="rule" edgeids="false" edgemode="directed" id="use-old">
+    <graph role="rule" edgeids="false" edgemode="directed" id="create">
         <attr name="$version">
             <string>curly</string>
         </attr>
         <node id="n1">
             <attr name="layout">
-                <string>255 335 19 19</string>
-            </attr>
-        </node>
-        <node id="n2">
-            <attr name="layout">
-                <string>92 210 19 19</string>
-            </attr>
-        </node>
-        <node id="n3">
-            <attr name="layout">
-                <string>433 215 19 19</string>
+                <string>269 92 43 18</string>
             </attr>
         </node>
         <node id="n4">
             <attr name="layout">
-                <string>188 206 19 19</string>
+                <string>294 187 233 18</string>
+            </attr>
+        </node>
+        <node id="n3">
+            <attr name="layout">
+                <string>577 176 141 36</string>
             </attr>
         </node>
         <node id="n0">
             <attr name="layout">
-                <string>252 88 19 19</string>
+                <string>375 87 96 36</string>
             </attr>
         </node>
-        <node id="n5">
+        <node id="n2">
             <attr name="layout">
-                <string>288 207 19 19</string>
+                <string>614 88 54 24</string>
             </attr>
         </node>
         <edge from="n1" to="n1">
             <attr name="label">
-                <string>prod:</string>
+                <string>del:</string>
             </attr>
         </edge>
-        <edge from="n1" to="n2">
+        <edge from="n1" to="n1">
             <attr name="label">
-                <string>arg:0</string>
+                <string>id:d</string>
             </attr>
         </edge>
-        <edge from="n1" to="n3">
-            <attr name="label">
-                <string>user:since</string>
-            </attr>
-        </edge>
-        <edge from="n1" to="n4">
-            <attr name="label">
-                <string>arg:1</string>
-            </attr>
-        </edge>
-        <edge from="n1" to="n5">
-            <attr name="label">
-                <string>arg:2</string>
-            </attr>
-        </edge>
-        <edge from="n2" to="n2">
-            <attr name="label">
-                <string>int:</string>
-            </attr>
-        </edge>
-        <edge from="n3" to="n3">
-            <attr name="label">
-                <string>int:</string>
-            </attr>
-        </edge>
-        <edge from="n4" to="n4">
-            <attr name="label">
-                <string>int:</string>
-            </attr>
-        </edge>
-        <edge from="n0" to="n0">
+        <edge from="n1" to="n1">
             <attr name="label">
                 <string>type:Date</string>
             </attr>
         </edge>
-        <edge from="n0" to="n2">
+        <edge from="n4" to="n4">
             <attr name="label">
-                <string>day</string>
+                <string>id:date</string>
             </attr>
         </edge>
-        <edge from="n0" to="n3">
+        <edge from="n4" to="n4">
             <attr name="label">
-                <string>new:since</string>
+                <string>user:Date(d.day,d.month,d.year)</string>
+            </attr>
+        </edge>
+        <edge from="n3" to="n3">
+            <attr name="label">
+                <string>bool:true</string>
+            </attr>
+        </edge>
+        <edge from="n3" to="n3">
+            <attr name="label">
+                <string>test:daysSince(date)&lt;15000</string>
+            </attr>
+        </edge>
+        <edge from="n3" to="n2">
+            <attr name="label">
+                <string>at</string>
+            </attr>
+        </edge>
+        <edge from="n0" to="n0">
+            <attr name="label">
+                <string>new:</string>
+            </attr>
+        </edge>
+        <edge from="n0" to="n0">
+            <attr name="label">
+                <string>type:Person</string>
+            </attr>
+        </edge>
+        <edge from="n0" to="n0">
+            <attr name="label">
+                <string>new=young:flag:pregnant</string>
             </attr>
         </edge>
         <edge from="n0" to="n4">
             <attr name="label">
-                <string>month</string>
+                <string>birthday</string>
             </attr>
         </edge>
-        <edge from="n0" to="n5">
+        <edge from="n2" to="n2">
             <attr name="label">
-                <string>year</string>
-            </attr>
-        </edge>
-        <edge from="n5" to="n5">
-            <attr name="label">
-                <string>int:</string>
+                <string>existsx=young:</string>
             </attr>
         </edge>
     </graph>
