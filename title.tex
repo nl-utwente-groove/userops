@@ -1,12 +1,14 @@
-\title{User-defined Operations in \GROOVE}
+\title{User-defined Types and Operations in \GROOVE}
 \author{Arend Rensink}
 \institute{University of Twente}
 \maketitle
 
 \begin{abstract}
-For graph transformation tools to be able to model practically relevant domains, they have to support a notion of data attributes. In the case of \GROOVE, this support takes the form of a signature with four primitive data types (\intT, \realT, \boolT and \stringT) and a collection of pre-defined operators, and a choice of four different algebras at different levels of abstraction. Graphs can contain algebra values as special nodes; attributes correspond to edges to such value nodes.
+The graph transformation tool \GROOVE supports data manipulation through a signature with four primitive data types (\intS, \realS, \boolS and \stringS) with a collection of pre-defined operators, and a choice of four different algebras at different levels of abstraction. Graphs can contain algebra values as special nodes; attributes correspond to edges to such value nodes.
 
-This setup makes it awkward to model data manipulation beyond those pre-defined operations --- for instance, advanced string operations or statistical calculations. Moreover, the algebraic theoretical underpinning means that operations are \emph{determinate}: their outcome is always completely determined by their arguments. This means that, for instance, randomness cannot be modelled.
+\smallskip
+This setup has clear limitations. For instance, it is awkward to model more advanced data calculations --- for instance, advanced string or statistical operations. Moreover, the algebraic underpinning means that non-determinism (for instance, randomness) cannot be modelled. Finally, there is no support for structured data types, such as records.
 
-In this paper, we describe an extension of \GROOVE to \emph{used-defined operations}, which are based on programmable Java methods. Essentially, the user provides a class with annotated static methods, which is made available to the \GROOVE library at link time. The methods can have any signature based on the four primitive types, and can be declared as indeterminate.
+\smallskip
+In this paper, we describe an extension of \GROOVE to \emph{used-defined types and operations}, based on programmable Java classes and methods. Essentially, the user can provide annotated record classes and classes with annotated static methods; by making these available to \GROOVE at link time, they can be used in rule systems. Moreover, methods can be declared as \emph{indeterminate}, meaning that their outcome is not completely determined by their arguments; this allows randomness and other forms of non-determinism.
 \end{abstract}

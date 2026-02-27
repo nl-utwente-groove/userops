@@ -1,0 +1,13 @@
+\section{Introduction}
+\label{sec:intro}
+
+For graph transformation tools to be able to model practically relevant domains, they have to support a notion of data attributes. In the case of \GROOVE, this support is rooted in algebraic theory: there is a pre-defined signature with four primitive sorts (\intS, \realS, \boolS and \stringS), and for each sort a set of constants and a collection of basic operators. \GROOVE a choice of four different algebras at various levels of abstraction (the \termA algebra, in which no computation takes place; the \bigA algebra for infinite-precision arithmetic; the \javaA algebra, directly based on Java types with \doubleT for \realS and \intT for \intS; and \pointA, where each carrier sort contains precisely one value).
+
+Data values are incorporated in graphs as special \emph{value nodes}, typed by their sorts; attributes are edges from plain (non-value) nodes to value nodes. Rules can contain sort-typed variable nodes and expressions built from operators and variable nodes.
+
+Graphs can contain algebra values as special nodes; attributes correspond to edges to such value nodes.
+
+This setup has clear limitations. For instance, it is awkward to model data manipulation beyond those pre-defined types and operations --- for instance, advanced string operations or statistical calculations. Moreover, the algebraic theoretical underpinning means that operations are \emph{determinate}: their outcome is always completely determined by their arguments. This means that, for instance, randomness cannot be modelled. Finally, there is no support for structured data types, such as records.
+
+In this paper, we describe an extension of \GROOVE to \emph{used-defined types and operations}, based on programmable Java classes and methods. Essentially, the user can provide annotated record classes and classes with annotated static methods; by making these available to the \GROOVE library at link time, they can be used in rule systems. User-defined record types must have primitively typed fields; user-defined operations can have any signature based on the four primitive types plus user types. Moreover, methods can be declared as \emph{indeterminate}, meaning that their outcome is not completely determined by their arguments. This allows the inclusion of randomness and other forms of non-determinism in data manipulation.
+
