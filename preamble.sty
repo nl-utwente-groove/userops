@@ -56,7 +56,7 @@
 % Generative set of
 \newcommand{\gensetof}[2]{\setof{{#1}\mid{#2}}}
 % Powerset
-\newcommand{\power}[1]{2^{#1}}
+\newcommand{\power}[1]{\mathcal{P}(#1)}
 % Infinite sequences superscript
 \newcommand{\infseq}{^{\omega}}
 % Finite sequences superscript
@@ -86,6 +86,11 @@
 
 \newcommand{\Nat}{{\mathbb{N}}}
 \newcommand{\Bool}{{\mathbb{B}}}
+\newcommand{\Real}{{\mathbb{R}}}
+\newcommand{\Rat}{{\mathbb{Q}}}
+\newcommand{\Int}{{\mathbb{I}}}
+\newcommand{\String}{{\mathbb{S}}}
+\newcommand{\Char}{{\mathbb{C}}}
 
 \newcommand{\ttt}{\mathbf{1}}
 \newcommand{\fff}{\mathbf{0}}
@@ -146,3 +151,21 @@
 }}
 % negative single-arrow transition
 \newcommand{\ntrans}[2][\,]{\mathrel{\not\trans{#2}}_{\!#1}}
+
+% double-arrow transition
+\newcommand{\Trans}[2][\,]{\mathrel{\mathchoice
+  {\inlineTrans[#1]{#2}}%
+  {\inlineTrans[#1]{#2}}%
+  {\inlineTrans[#1]{#2}}%
+  {\inlineTrans[#1]{#2}}%
+}}
+\newcommand{\inlineTrans}[2][\,]{\mathrel{%
+  \smash{\xRightarrow{\lowerlabel{#2}}_{\!#1}}%
+  \vphantom{\xRightarrow{\lowerlabel{#2}}}%
+}}
+\newcommand{\displayTrans}[2][\,]{\mathrel{%
+  \smash{\xRightarrow{\lowerlabel{#2}}_{\!#1}}%
+  \vphantom{\xRightarrow{X}}%
+}}
+% negative single-arrow transition
+\newcommand{\nTrans}[2][\,]{\mathrel{\not\Trans{#2}}_{\!#1}}

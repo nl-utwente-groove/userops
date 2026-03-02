@@ -4,71 +4,31 @@
         <attr name="$version">
             <string>curly</string>
         </attr>
-        <node id="n1">
-            <attr name="layout">
-                <string>269 92 43 18</string>
-            </attr>
-        </node>
-        <node id="n4">
-            <attr name="layout">
-                <string>294 187 233 18</string>
-            </attr>
-        </node>
-        <node id="n3">
-            <attr name="layout">
-                <string>577 176 141 36</string>
-            </attr>
-        </node>
         <node id="n0">
             <attr name="layout">
-                <string>375 87 96 36</string>
+                <string>413 95 19 19</string>
+            </attr>
+        </node>
+        <node id="n1">
+            <attr name="layout">
+                <string>281 91 19 19</string>
             </attr>
         </node>
         <node id="n2">
             <attr name="layout">
-                <string>614 88 54 24</string>
+                <string>631 90 19 19</string>
             </attr>
         </node>
-        <edge from="n1" to="n1">
-            <attr name="label">
-                <string>del:</string>
+        <node id="n3">
+            <attr name="layout">
+                <string>638 184 19 19</string>
             </attr>
-        </edge>
-        <edge from="n1" to="n1">
-            <attr name="label">
-                <string>id:d</string>
+        </node>
+        <node id="n4">
+            <attr name="layout">
+                <string>294 186 233 18</string>
             </attr>
-        </edge>
-        <edge from="n1" to="n1">
-            <attr name="label">
-                <string>type:Date</string>
-            </attr>
-        </edge>
-        <edge from="n4" to="n4">
-            <attr name="label">
-                <string>id:date</string>
-            </attr>
-        </edge>
-        <edge from="n4" to="n4">
-            <attr name="label">
-                <string>user:Date(d.day,d.month,d.year)</string>
-            </attr>
-        </edge>
-        <edge from="n3" to="n3">
-            <attr name="label">
-                <string>bool:true</string>
-            </attr>
-        </edge>
-        <edge from="n3" to="n3">
-            <attr name="label">
-                <string>test:daysSince(date)&lt;15000</string>
-            </attr>
-        </edge>
-        <edge from="n3" to="n2">
-            <attr name="label">
-                <string>at</string>
-            </attr>
-        </edge>
+        </node>
         <edge from="n0" to="n0">
             <attr name="label">
                 <string>new:</string>
@@ -89,9 +49,54 @@
                 <string>birthday</string>
             </attr>
         </edge>
+        <edge from="n1" to="n1">
+            <attr name="label">
+                <string>del:</string>
+            </attr>
+        </edge>
+        <edge from="n1" to="n1">
+            <attr name="label">
+                <string>id:d</string>
+            </attr>
+        </edge>
+        <edge from="n1" to="n1">
+            <attr name="label">
+                <string>type:Date</string>
+            </attr>
+        </edge>
         <edge from="n2" to="n2">
             <attr name="label">
                 <string>existsx=young:</string>
+            </attr>
+        </edge>
+        <edge from="n3" to="n3">
+            <attr name="label">
+                <string>bool:true</string>
+            </attr>
+        </edge>
+        <edge from="n3" to="n3">
+            <attr name="label">
+                <string>test:daysSince(date)&lt;15000</string>
+            </attr>
+        </edge>
+        <edge from="n3" to="n2">
+            <attr name="label">
+                <string>at</string>
+            </attr>
+        </edge>
+        <edge from="n4" to="n4">
+            <attr name="label">
+                <string>parout:0</string>
+            </attr>
+        </edge>
+        <edge from="n4" to="n4">
+            <attr name="label">
+                <string>id:date</string>
+            </attr>
+        </edge>
+        <edge from="n4" to="n4">
+            <attr name="label">
+                <string>user:Date(d.day,d.month,d.year)</string>
             </attr>
         </edge>
     </graph>

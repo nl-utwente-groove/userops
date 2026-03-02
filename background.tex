@@ -1,0 +1,38 @@
+\section{Theoretical underpinning}
+\label{sec:background}
+
+If $\sigma\in S^*$ is a sequence, we use $|\sigma|$ denote its length, and for all $1\leq i\leq |\sigma|$ we use $\sigma\proj i$ denote its $i$'th element; hence $\sigma=\sigma\proj 1\cdots \sigma\proj{|\sigma|}$.
+
+\subsection{System types and operations}
+
+The attribute support of \GROOVE is based on standard concepts of multi-sorted algebra. The tool offers a set of four primitive \emph{sorts} $S=\setof{\boolS,\intS,\realS,\stringS}$ with a fixed set of \emph{constants} $C$ and \emph{operators} $O$, partitioned into $\setof{C^s}_{s\in S}$ and $\setof{O^s}_{s\in S}$, respectively. In \GROOVE, $C$ consists of Java-based literals for the aforementioned sorts and $O$ consists of elementary arithmetic operations and string manipulation functions. The \emph{sort of} a constant or operator $a$ is that $s_a\in S$ for which $a\in C^{s_a}\cup O^{s_a}$. Moreover, each $o\in O$ has a \emph{signature} $\sigma_o\in S^*$. In addition, there is a set of \emph{variables} $X$, likewise partitioned into $\setof{X^s}_{s\in S}$.
+
+Based on these ingredients, one can build \emph{terms} $T$, once more partitioned into $T^s$ for $s\in S$, as the smallest sets such that
+%
+\begin{itemize}
+\item $c\in T^{s_c}$ for all $c\in C$;
+\item $x\in T^{s_x}$ for all $x\in X$;
+\item $o(t_1,\cdots t_n)\in T^{s_o}$ for all $o\in O$, where $t_i\in T^{\sigma_o\proj i}$ for all $1\leq i\leq |\sigma|$.
+\end{itemize}
+%
+We use $T^s(Y)$ (for $Y\subseteq X$) to denote the subset of $T^s$ for which all variables are taken for $Y$. The terms in $T(\emptyset)$ are called \emph{ground}. 
+
+As usual, an \emph{algebra} based on a signature $\tupof{S,C,O}$ consists of \emph{carrier sets} $D^s$ for all $s\in S$, \emph{values} $v_c\in D^{s_c}$ for all $c\in C$ and \emph{functions} $f_o\colon D_1\times\cdots \times D_{|s|} \to D^{s_o}$ for all $o\in O$ (where $D_i=D^{\sigma_o\proj i}$ for all $1\leq i\leq |\sigma|$). Every \emph{valuation} $\val\colon X\to D$ (with $\val(x)\in D^{s_x}$ for all $x\in X$) can then be extended inductively to $T(X)$, such that $\val(t)\in D^{s_t}$ for all $t\in T(X)$.
+
+Out of the box, \GROOVE offers four algebras: \termA, where $D^s=T^s(\emptyset)$ for all $s\in S$, $\bigA$, where the carrier sets are essentially the mathematical sets of booleans $\Bool$, integers $\Int$, rationals $\Rat$ and strings $\String=\Char^*$ (for some character set $\Char$); $\javaA$, where the carrier sets are essentially the Java types $\boolT$, $\intT$, $\doubleT$ and $\stringT$; and finally, $\pointA$ where all carrier sets are singletons. In addition, $\bigA$ and $\javaA$ contain special error values $\bot_s\in D^s$ for each sort $s\in S$ to ensure that all $f_o$ are fully defined; for instance, a term $t_1/t_2$, denoting the division of $t_1$ by $t_2$, yields $\bot_\intS$ respectively $\bot_\realS$ if $t_2$ evaluates to zero.
+
+\medskip\noindent
+We will not go into the formalisation of \GROOVE graphs here, except to say that nodes are taken from a universe that includes the combined carrier sets $D$ of the chosen algebra as so-called \emph{value nodes}, and edges can have $D$-nodes as their target (but not their source). Rules can contain terms encoded as graph structures (see \cite{GROOVE-attributes} for the encoding) that include variables as nodes. Given a \emph{match} of a rule $r$ into a host graph (which among other things establishes a valuation for $r$'s variable nodes), all terms contained in $r$ are evaluated; part of the outcome of that evaluation serves as an application condition for $r$, another part determines the target graph. Any combination of host graph $G$ and match $m$ of $r$ into $G$ that (when evaluated) satisfies $r$'s application conditions gives rise to a target graph $H$ that is uniquely determined up to isomorphism. That relation (actually a partial function) is denoted $G\Trans{r,m} H$.
+
+\subsection{User types and operations}
+
+The extension of this paper can be understood as adding a fifth sort, \userS, as well as constants $C^\userS$ and operators $O^\userS$, based on the domain being modelled. In contrast to system types and operators, $C^\userS$ and $O^\userS$ are not \emph{a priori} fixed.
+
+Moreover, the extension also introduces a subset $O_\iota\subseteq O^\userS$ of \emph{indeterminate} operators, meaning that their result is actually not fixed by their parameters. The prototypical example is a random generator, which has an empty signature (it takes no arguments) but by its very nature produces an unpredictable result. Algebraically, an indeterminate operator $o\in O_\iota$ can be captured by a powerset function $F_o\colon D_1\times\cdots \times D_{|s|} \to (\power{D^{s_o}}\setminus \setof\emptyset)$, rather than a simple function $f_o$ as above. In the context of \GROOVE rules, this has two consequences:
+%
+\begin{itemize}
+\item Indeterminate operations are of little use in application conditions. If the application condition of a rule $r$ would depend on some $o\in O_\iota$, determining whether it is satisfied for a given $G$ and $m$ would involve a comprehension of the \emph{possible} outcomes of $F_o$, which goes against the nature of indeterminacy. In fact, we entirely disallow indeterminacy in application conditions.
+
+\item If a rule $r$ contains an indeterminate operator, its actual application is no longer deterministic: given a host graph $G$ and a match $m$ that satisfies $r$'s application condition, the $H$ for which $G\Trans{r,m} H$ is still guaranteed to exist, but not guaranteed to be unique. Yet, rather than including all possible such $H$ in the state space, \GROOVE picks a single one, representing the incidental outcome of $F_o$.
+\end{itemize}
+
