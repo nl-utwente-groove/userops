@@ -4,11 +4,6 @@
         <attr name="$version">
             <string>curly</string>
         </attr>
-        <node id="n0">
-            <attr name="layout">
-                <string>152 104 19 19</string>
-            </attr>
-        </node>
         <node id="n1">
             <attr name="layout">
                 <string>347 137 19 19</string>
@@ -24,31 +19,16 @@
                 <string>260 274 19 19</string>
             </attr>
         </node>
-        <node id="n4">
+        <node id="n0">
             <attr name="layout">
-                <string>385 102 19 19</string>
+                <string>67 50 19 19</string>
             </attr>
         </node>
-        <edge from="n0" to="n0">
-            <attr name="label">
-                <string>type:Date</string>
+        <node id="n4">
+            <attr name="layout">
+                <string>67 150 19 19</string>
             </attr>
-        </edge>
-        <edge from="n0" to="n1">
-            <attr name="label">
-                <string>year</string>
-            </attr>
-        </edge>
-        <edge from="n0" to="n2">
-            <attr name="label">
-                <string>month</string>
-            </attr>
-        </edge>
-        <edge from="n0" to="n3">
-            <attr name="label">
-                <string>day</string>
-            </attr>
-        </edge>
+        </node>
         <edge from="n1" to="n1">
             <attr name="label">
                 <string>int:1966</string>
@@ -62,6 +42,26 @@
         <edge from="n3" to="n3">
             <attr name="label">
                 <string>int:6</string>
+            </attr>
+        </edge>
+        <edge from="n0" to="n0">
+            <attr name="label">
+                <string>type:Date</string>
+            </attr>
+        </edge>
+        <edge from="n0" to="n3">
+            <attr name="label">
+                <string>day</string>
+            </attr>
+        </edge>
+        <edge from="n0" to="n2">
+            <attr name="label">
+                <string>month</string>
+            </attr>
+        </edge>
+        <edge from="n0" to="n1">
+            <attr name="label">
+                <string>year</string>
             </attr>
         </edge>
         <edge from="n4" to="n4">

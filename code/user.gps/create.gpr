@@ -6,27 +6,27 @@
         </attr>
         <node id="n0">
             <attr name="layout">
-                <string>413 95 19 19</string>
+                <string>184 65 19 19</string>
             </attr>
         </node>
         <node id="n1">
             <attr name="layout">
-                <string>281 91 19 19</string>
-            </attr>
-        </node>
-        <node id="n2">
-            <attr name="layout">
-                <string>631 90 19 19</string>
-            </attr>
-        </node>
-        <node id="n3">
-            <attr name="layout">
-                <string>638 184 19 19</string>
+                <string>61 60 19 19</string>
             </attr>
         </node>
         <node id="n4">
             <attr name="layout">
-                <string>294 186 233 18</string>
+                <string>154 149 19 19</string>
+            </attr>
+        </node>
+        <node id="n3">
+            <attr name="layout">
+                <string>379 141 19 19</string>
+            </attr>
+        </node>
+        <node id="n2">
+            <attr name="layout">
+                <string>374 59 19 19</string>
             </attr>
         </node>
         <edge from="n0" to="n0">
@@ -64,9 +64,19 @@
                 <string>type:Date</string>
             </attr>
         </edge>
-        <edge from="n2" to="n2">
+        <edge from="n4" to="n4">
             <attr name="label">
-                <string>existsx=young:</string>
+                <string>par:0</string>
+            </attr>
+        </edge>
+        <edge from="n4" to="n4">
+            <attr name="label">
+                <string>id:date</string>
+            </attr>
+        </edge>
+        <edge from="n4" to="n4">
+            <attr name="label">
+                <string>user:Date(d.day,d.month,d.year)</string>
             </attr>
         </edge>
         <edge from="n3" to="n3">
@@ -79,24 +89,19 @@
                 <string>test:daysSince(date)&lt;15000</string>
             </attr>
         </edge>
+        <edge from="n3" to="n3">
+            <attr name="label">
+                <string>test:daysSince(date)&gt;7000</string>
+            </attr>
+        </edge>
         <edge from="n3" to="n2">
             <attr name="label">
                 <string>at</string>
             </attr>
         </edge>
-        <edge from="n4" to="n4">
+        <edge from="n2" to="n2">
             <attr name="label">
-                <string>parout:0</string>
-            </attr>
-        </edge>
-        <edge from="n4" to="n4">
-            <attr name="label">
-                <string>id:date</string>
-            </attr>
-        </edge>
-        <edge from="n4" to="n4">
-            <attr name="label">
-                <string>user:Date(d.day,d.month,d.year)</string>
+                <string>existsx=young:</string>
             </attr>
         </edge>
     </graph>

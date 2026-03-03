@@ -1,38 +1,57 @@
 \section{Theoretical underpinning}
 \label{sec:background}
 
-If $\sigma\in S^*$ is a sequence, we use $|\sigma|$ denote its length, and for all $1\leq i\leq |\sigma|$ we use $\sigma\proj i$ denote its $i$'th element; hence $\sigma=\sigma\proj 1\cdots \sigma\proj{|\sigma|}$.
+Since this paper is especially meant to introduce a tool extension, we limit the theoretical exposition to the necessary minimum.
+%
+%We use $|\sigma|$ to denote the length of a sequence $\sigma\in S^*$ and $\sigma\proj i$ (for $1\leq i\leq |\sigma|$) to denote its $i$'th element (hence $\sigma=\sigma\proj 1\cdots \sigma\proj{|\sigma|}$). The empty sequence is denoted $\epsilon$. We also write $\power X$ for the powerset of a set $X$.
 
 \subsection{System types and operations}
+\label{sec:system}
 
-The attribute support of \GROOVE is based on standard concepts of multi-sorted algebra. The tool offers a set of four primitive \emph{sorts} $S=\setof{\boolS,\intS,\realS,\stringS}$ with a fixed set of \emph{constants} $C$ and \emph{operators} $O$, partitioned into $\setof{C^s}_{s\in S}$ and $\setof{O^s}_{s\in S}$, respectively. In \GROOVE, $C$ consists of Java-based literals for the aforementioned sorts and $O$ consists of elementary arithmetic operations and string manipulation functions. The \emph{sort of} a constant or operator $a$ is that $s_a\in S$ for which $a\in C^{s_a}\cup O^{s_a}$. Moreover, each $o\in O$ has a \emph{signature} $\sigma_o\in S^*$. In addition, there is a set of \emph{variables} $X$, likewise partitioned into $\setof{X^s}_{s\in S}$.
+The attribute support in \GROOVE is based on multi-sorted algebra. This starts with the concept of a \emph{signature}, being a tuple $\tupof{S,C,O}$ of disjoint sets $S$ (\emph{sorts}), $C$ (\emph{constants}) and $O$ (\emph{operators}); $C$ and $S$ are partitioned into $\setof{C^s}_{s\in S}$ and $\setof{O^s}_{s\in S}$, respectively. \GROOVE offers only primitive sorts, in the form of $S=\setof{\boolS,\intS,\realS,\stringS}$; $C$ consists of literals in Java notation; and $O$ is a set of elementary arithmetic and string manipulation operators.
 
-Based on these ingredients, one can build \emph{terms} $T$, once more partitioned into $T^s$ for $s\in S$, as the smallest sets such that
+The \emph{sort of} a constant or operator $p\in C\cup O$ is that $s_p\in S$ for which $p\in C^{s_p}\cup O^{s_p}$. Moreover, each $o\in O$ has an \emph{input signature} $\sigma_o\in S^*$. In addition, there is a set of \emph{variables} $X$, likewise partitioned into $\setof{X^s}_{s\in S}$.
+
+Given a signature $\tupof{S,C,O}$ and a set of variables $X$, the set of \emph{terms} $T$, once more partitioned into $\setof{T^s}_{s\in S}$, is defined as the smallest set such that
 %
-\begin{itemize}
-\item $c\in T^{s_c}$ for all $c\in C$;
-\item $x\in T^{s_x}$ for all $x\in X$;
-\item $o(t_1,\cdots t_n)\in T^{s_o}$ for all $o\in O$, where $t_i\in T^{\sigma_o\proj i}$ for all $1\leq i\leq |\sigma|$.
-\end{itemize}
+\begin{inumerate}
+\item $c\in T^{s_c}$ for all $c\in C$,
+\item $x\in T^{s_x}$ for all $x\in X$, and
+\item $o(t_1,\cdots t_{|\sigma_o|})\in T^{s_o}$ for all $o\in O$, given $t_i\in T^{\sigma_o\proj i}$ for all $1\leq i\leq |\sigma_o|$.
+\end{inumerate}
 %
-We use $T^s(Y)$ (for $Y\subseteq X$) to denote the subset of $T^s$ for which all variables are taken for $Y$. The terms in $T(\emptyset)$ are called \emph{ground}. 
+%We use $T^s(Y)$ (for $Y\subseteq X$) to denote the subset of $T^s$ for which all variables are taken from $Y$. The terms in $T(\emptyset)$ are called \emph{ground}. 
 
-As usual, an \emph{algebra} based on a signature $\tupof{S,C,O}$ consists of \emph{carrier sets} $D^s$ for all $s\in S$, \emph{values} $v_c\in D^{s_c}$ for all $c\in C$ and \emph{functions} $f_o\colon D_1\times\cdots \times D_{|s|} \to D^{s_o}$ for all $o\in O$ (where $D_i=D^{\sigma_o\proj i}$ for all $1\leq i\leq |\sigma|$). Every \emph{valuation} $\val\colon X\to D$ (with $\val(x)\in D^{s_x}$ for all $x\in X$) can then be extended inductively to $T(X)$, such that $\val(t)\in D^{s_t}$ for all $t\in T(X)$.
+An \emph{algebra} based on $\tupof{S,C,O}$ consists of \emph{carrier sets} $D^s$ for all $s\in S$, \emph{values} $v_c\in D^{s_c}$ for all $c\in C$, and \emph{functions} $f_o\colon D_1\times\cdots \times D_{|\sigma_o|} \to D^{s_o}$ for all $o\in O$, where $D_i=D^{\sigma_o\proj i}$ for all $1\leq i\leq |\sigma|$. Given a \emph{valuation} $\val\colon X\to D$ (with $\val(x)\in D^{s_x}$ for all $x\in X$), every term $t\in T^s$ gives rise to a value in $D^s$.
+%inductively gives rise to a function $\sem-_\val\colon T(X)\to D$ such that $\sem t_\val\in D^{s_t}$ for all $t\in T(X)$.
 
-Out of the box, \GROOVE offers four algebras: \termA, where $D^s=T^s(\emptyset)$ for all $s\in S$, $\bigA$, where the carrier sets are essentially the mathematical sets of booleans $\Bool$, integers $\Int$, rationals $\Rat$ and strings $\String=\Char^*$ (for some character set $\Char$); $\javaA$, where the carrier sets are essentially the Java types $\boolT$, $\intT$, $\doubleT$ and $\stringT$; and finally, $\pointA$ where all carrier sets are singletons. In addition, $\bigA$ and $\javaA$ contain special error values $\bot_s\in D^s$ for each sort $s\in S$ to ensure that all $f_o$ are fully defined; for instance, a term $t_1/t_2$, denoting the division of $t_1$ by $t_2$, yields $\bot_\intS$ respectively $\bot_\realS$ if $t_2$ evaluates to zero.
+Out of the box, \GROOVE offers four algebras: \termA, where $D^s=T^s$ for all $s\in S$, $\bigA$, where the carrier sets are essentially the mathematical sets of booleans $\Bool$, integers $\Int$, rationals $\Rat$ and strings $\String=\Char^*$ (for the set  $\Char$ of Unicode characters); $\javaA$, where the carrier sets are the values of the Java types $\boolT$, $\intT$, $\doubleT$ and $\stringT$; and finally $\pointA$, for which all carrier sets are singletons. In addition, $\bigA$ and $\javaA$ contain special error values $\bot_s\in D^s$ for each sort $s\in S$ to ensure that all $f_o$ are fully defined; for instance, a term $t_1/t_2$, denoting the division of $t_1$ by $t_2$, yields $\bot_\intS$ respectively $\bot_\realS$ if $t_2$ evaluates to zero.
 
 \medskip\noindent
-We will not go into the formalisation of \GROOVE graphs here, except to say that nodes are taken from a universe that includes the combined carrier sets $D$ of the chosen algebra as so-called \emph{value nodes}, and edges can have $D$-nodes as their target (but not their source). Rules can contain terms encoded as graph structures (see \cite{GROOVE-attributes} for the encoding) that include variables as nodes. Given a \emph{match} of a rule $r$ into a host graph (which among other things establishes a valuation for $r$'s variable nodes), all terms contained in $r$ are evaluated; part of the outcome of that evaluation serves as an application condition for $r$, another part determines the target graph. Any combination of host graph $G$ and match $m$ of $r$ into $G$ that (when evaluated) satisfies $r$'s application conditions gives rise to a target graph $H$ that is uniquely determined up to isomorphism. That relation (actually a partial function) is denoted $G\Trans{r,m} H$.
+It may be noted that the above formalisation does not include equations, and thus omits an ingredient that is essential in algebraic reasoning. Indeed, \GROOVE does not offer equation-based analysis capabilities. If operators would have equational specifications, then \termA would not be a valid algebra.
+
+\medskip\noindent
+We will not go into the formalisation of \GROOVE graphs here, except to recall that nodes are taken from a universe that includes the combined carrier sets $D$ (of the selected algebra) as so-called \emph{value nodes}, and edges can have $D$-nodes as their target (but not their source). Rules can contain terms encoded as AST-like graph structures (see \cite{GROOVE-attributes} for the encoding) that include variables as nodes. A \emph{match} of a rule $r$ into a host graph establishes a valuation $\val_r$ for $r$'s variable nodes, which is used to evaluate all terms contained in $r$. Part of the outcome of that evaluation serves as an application condition for $r$, another part determines the values in the target graph. Any combination of host graph $G$ and match $m$ of $r$ into $G$ that (when evaluated) satisfies $r$'s application conditions gives rise, through the usual algebraic pushout construction (see \cite{GT-book,Ehrig-attributes}), to a target graph $H$, which is therefore uniquely determined up to isomorphism. The combined construction is denoted $G\Trans{r,m} H$.
 
 \subsection{User types and operations}
+\label{sec:user}
 
-The extension of this paper can be understood as adding a fifth sort, \userS, as well as constants $C^\userS$ and operators $O^\userS$, based on the domain being modelled. In contrast to system types and operators, $C^\userS$ and $O^\userS$ are not \emph{a priori} fixed.
-
-Moreover, the extension also introduces a subset $O_\iota\subseteq O^\userS$ of \emph{indeterminate} operators, meaning that their result is actually not fixed by their parameters. The prototypical example is a random generator, which has an empty signature (it takes no arguments) but by its very nature produces an unpredictable result. Algebraically, an indeterminate operator $o\in O_\iota$ can be captured by a powerset function $F_o\colon D_1\times\cdots \times D_{|s|} \to (\power{D^{s_o}}\setminus \setof\emptyset)$, rather than a simple function $f_o$ as above. In the context of \GROOVE rules, this has two consequences:
+We introduce a single new sort $\userS$. User-defined operators come in three kinds:
 %
 \begin{itemize}
-\item Indeterminate operations are of little use in application conditions. If the application condition of a rule $r$ would depend on some $o\in O_\iota$, determining whether it is satisfied for a given $G$ and $m$ would involve a comprehension of the \emph{possible} outcomes of $F_o$, which goes against the nature of indeterminacy. In fact, we entirely disallow indeterminacy in application conditions.
+\item \emph{Constructors} $u$, with $\sigma_u\in S^*$ and $s_u=\userS$. As the name implies, from a sequence of primitive-sorted input values a constructor returns a unique $\userS$-sorted value, being essentially the \emph{tuple} of input values --- in other words, $u$ is a product operator. Uniqueness here means that the corresponding function $f_u$ is injective and the image sets $\img f_u$ are guaranteed to be disjoint for different constructors $u$.
 
-\item If a rule $r$ contains an indeterminate operator, its actual application is no longer deterministic: given a host graph $G$ and a match $m$ that satisfies $r$'s application condition, the $H$ for which $G\Trans{r,m} H$ is still guaranteed to exist, but not guaranteed to be unique. Yet, rather than including all possible such $H$ in the state space, \GROOVE picks a single one, representing the incidental outcome of $F_o$.
+\item \emph{Accessors} $a_{u,1},\ldots a_{u,n}$ for every constructor $u$ and $1\leq i\leq n=|\sigma_u|$, with $\sigma_{a_i}=\userS$ and $s_{a_i}=\sigma_u\proj i$. The accessor $a_{u,i}$ retrieves the $i$'th element of the tuple constructed by $u$; equationally this can be expressed as $a_i(u(x_1,\ldots,x_n))=x_i$. Outside $\img f_u$, the accessors $a_{u,i}$ are undefined --- or rather, they yield $\bot_\userS$.
+
+\item \emph{Other operators}, of any signature and sort.
 \end{itemize}
+%
+Let $U$ be the collection of constructors; then the $\userS$-carrier set is defined by
+%
+\[ D^\userS = \textstyle\bigcup_{u\in U} \img f_u \enspace. \]
+%
+This means that all user-defined values can be obtained through construction. In particular, though the ``other operators'' in $O^\userS\setminus U$ also return $\userS$-sorted values, those can always (alternatively) be produced by some $u\in U$, hence can be understood as tuples of which the elements can be retrieved using accessors.
 
+\medskip\noindent An important additional feature is that the ``other operators'' may be designated as \emph{indeterminate}, meaning that their result is actually not fixed by their inputs. The prototypical example is a random generator, which has an empty input signature (it takes no arguments) but by its very nature produces an unpredictable result. Algebraically, an indeterminate operator $o\in \idt O$ can be captured by a powerset function $F_o\colon D_1\times\cdots \times D_{|s|} \to (\power{D^{s_o}}\setminus \setof\emptyset)$, rather than a simple function $f_o$ as above; each time $F_o$ is \emph{invoked} on a set of values $v_1,\ldots, v_{|s|}$, it returns a \emph{single} value from $F_o(v_1,\ldots,v_{|s|})$.
+
+As a consequence, if a rule $r$ contains an indeterminate operator, its actual application is no longer deterministic. Given a host graph $G$ and a match $m$, the indeterminate operators of $r$ are invoked based on the valuation $\val_r$, as part of the evaluation of the terms in $r$. The combined outcome may mean that $r$'s application condition is not satisfied; and if it is satisfied, the graph $H$ produced by the transformation $G\Trans{r,m} H$ is likely to be partially determined by that indeterminate outcome. The overall effect is that explorations of the same rule system at different moments in time can have different results --- which is precisely what one would expect from a system that includes a form of randomness.

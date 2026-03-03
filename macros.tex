@@ -3,39 +3,60 @@
 \newcommand{\GrGen}{\textsf{GrGen.NET}\xspace}
 \newcommand{\Henshin}{\textsf{Henshin}\xspace}
 \newcommand{\AutoGraph}{\textsf{AutoGraph}\xspace}
-\newcommand{\GROOVEversion}{7.5.1}
+\newcommand{\GROOVEversion}{7.5.2}
+
+\newcommand{\code}[1]{\text{\codefont{#1}}\xspace}
 
 % Sorts
-\newcommand{\intS}{\text{\textsf{int}}\xspace}
-\newcommand{\boolS}{\text{\textsf{bool}}\xspace}
-\newcommand{\realS}{\text{\textsf{real}}\xspace}
-\newcommand{\stringS}{\text{\textsf{string}}\xspace}
-\newcommand{\userS}{\text{\textsf{user}}\xspace}
-\newcommand{\floatS}{\text{\textsf{float}}\xspace}
-\newcommand{\doubleS}{\text{\textsf{double}}\xspace}
-\newcommand{\enumS}{\text{\textsf{enum}}\xspace}
-\newcommand{\objectS}{\text{\textsf{object}}\xspace}
+\newcommand{\intS}{\code{int}}
+\newcommand{\boolS}{\code{bool}}
+\newcommand{\realS}{\code{real}}
+\newcommand{\stringS}{\code{string}}
+\newcommand{\userS}{\code{user}}
+\newcommand{\floatS}{\code{float}}
+\newcommand{\doubleS}{\code{double}}
+\newcommand{\enumS}{\code{enum}}
+\newcommand{\objectS}{\code{object}}
 
 \newcommand{\NaU}{\textsf{NaU}\xspace}
 
 % Java types and keywords
-\newcommand{\intT}{\text{\textsf{\bfseries int}}\xspace}
-\newcommand{\boolT}{\text{\textsf{\bfseries boolean}}\xspace}
-\newcommand{\doubleT}{\text{\textsf{\bfseries double}}\xspace}
-\newcommand{\stringT}{\text{\textsf{String}}\xspace}
-\newcommand{\recordT}{\text{\textsf{\bfseries record}}\xspace}
-\newcommand{\nullT}{\text{\textsf{\bfseries null}}\xspace}
-
-\newcommand{\code}[1]{\textsf{#1}}
+\newcommand{\intT}{\code{\bfseries int}}
+\newcommand{\boolT}{\code{\bfseries boolean}}
+\newcommand{\doubleT}{\code{\bfseries double}}
+\newcommand{\stringT}{\code{String}}
+\newcommand{\recordT}{\code{\bfseries record}}
+\newcommand{\nullT}{\code{\bfseries null}}
+\newcommand{\staticT}{\code{\bfseries static}}
+\newcommand{\thisT}{\code{\bfseries this}}
+\newcommand{\publicT}{\code{\bfseries public}}
 
 % Algebras
-\newcommand{\termA}{\text{\textsf{term}}\xspace}
-\newcommand{\bigA}{\text{\textsf{big}}\xspace}
-\newcommand{\javaA}{\text{\textsf{java}}\xspace}
-\newcommand{\pointA}{\text{\textsf{point}}\xspace}
+\newcommand{\termA}{\code{term}}
+\newcommand{\bigA}{\code{big}}
+\newcommand{\javaA}{\code{java}}
+\newcommand{\pointA}{\code{point}}
+
+% Rules
+\newcommand{\createR}{\textsf{create}\xspace}
+\newcommand{\birthR}{\textsf{birth}\xspace}
+
+% GROOVE rule labels
+\newcommand{\PersonL}{\code{\bfseries Person}}
+\newcommand{\DateL}{\code{\bfseries Date}}
+\newcommand{\pregnantL}{\code{\itshape pregnant}}
+\newcommand{\birthdayL}{\code{birthday}}
+\newcommand{\childL}{\code{child}}
+\newcommand{\youngL}{\code{young}}
 
 % Valuation
 \newcommand{\val}{\nu}
+% Extension
+\newcommand{\ext}[1]{\smash{\hat{#1}}\vphantom{#1}}
+% Indeterminacy
+\newcommand{\idt}[1]{{#1}_\iota}
+% User-definedness
+\newcommand{\usr}[1]{{#1}_\upsilon}
 
 % Example
 

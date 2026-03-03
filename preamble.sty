@@ -8,7 +8,7 @@
 \usepackage{wrapfig}
 % Float control
 \usepackage{caption}
-\captionsetup{font=small}
+\captionsetup{font=small,skip=\smallskipamount,belowskip=\smallskipamount}
 % Subfigures
 \usepackage{subcaption}
 % References and environments
@@ -30,12 +30,34 @@
 \usepackage{xspace}
 % Restatable theorems
 \usepackage{thmtools,thm-restate}
+% Colours
+\usepackage[svgnames]{xcolor}
+\usepackage{fontspec}
+\newfontfamily\codefont[Scale=.85]{Consolas}
+\newfontfamily\smallcodefont[Scale=.8]{Consolas}
+% Listings
+\usepackage{listings}
+% Set the defaults
+\lstset{language=java,
+        basicstyle=\linespread{0.85}\smallcodefont,
+        columns=fullflexible,
+        morekeywords={record},
+        classoffset=1,
+        morekeywords={@UserType,@UserOperation},
+        keywordstyle=\color{blue},
+        classoffset=0,
+        mathescape=true,
+        tabsize=3,
+        commentstyle=\color{DarkGreen}\itshape
+}
+
 
 % Decrease space
 \setlength{\abovedisplayskip}{5mm}
 \setlength{\belowdisplayskip}{5mm}
 \setlength{\textfloatsep}{5mm}
 \setlength{\intextsep}{5mm}
+\renewcommand{\textfraction}{0.1}
 
 % enumitem layout within theorem environments
 \SetEnumitemKey{smallsep}{topsep=\smallskipamount, itemsep=0pt}
@@ -161,11 +183,11 @@
 }}
 \newcommand{\inlineTrans}[2][\,]{\mathrel{%
   \smash{\xRightarrow{\lowerlabel{#2}}_{\!#1}}%
-  \vphantom{\xRightarrow{\lowerlabel{#2}}}%
+  \vphantom{\xrightarrow{\lowerlabel{#2}}}%
 }}
 \newcommand{\displayTrans}[2][\,]{\mathrel{%
   \smash{\xRightarrow{\lowerlabel{#2}}_{\!#1}}%
-  \vphantom{\xRightarrow{X}}%
+  \vphantom{\xrightarrow{X}}%
 }}
 % negative single-arrow transition
 \newcommand{\nTrans}[2][\,]{\mathrel{\not\Trans{#2}}_{\!#1}}

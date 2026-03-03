@@ -9,56 +9,51 @@ import nl.utwente.groove.annotation.UserType;
 @SuppressWarnings("javadoc")
 @UserType
 public record Date(int day, int month, int year) {
-	@Override
 	@UserOperation
-	public String toString() {
+	public String toString() { // Returns a String representation of this Date
 		return "" + day() + " " + MONTHS[month() - 1] + " " + year();
 	}
 
-	public boolean isLeapYear() {
-		return year() % 4 == 0 && (year() % 100 != 0 || year() % 400 == 0);
-	}
-
 	@UserOperation(indeterminate = true)
-	public int daysSince() {
-		var cal = Calendar.getInstance();
-		cal.set(year(), month() - 1, day());
-		var today = new java.util.Date();
-		long diffInMillies = Math.abs(today.getTime() - cal.getTime().getTime());
-		return (int) TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+	public int daysSince() { // Returns the number of days between this Date and now
+		var cal = Calendar.getInstance(); cal.set(year(), month() - 1, day());
+		long diff = Math.abs(new java.util.Date().getTime() - cal.getTime().getTime());
+		return (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 	}
 
 	@UserOperation
-	public Date next() {
-		int day = day() + 1;
-		var month = month();
-		var year = year();
-		if (day > daysInMonth(month, isLeapYear())) {
-			day = 1;
-			month += 1;
+	public Date next() { // Returns the next Date with respect to this one
+		int day = day() + 1, month = month(), year = year();
+		if (day > daysInMonth()) {
+			day = 1; month += 1;
 			if (month > 12) {
-				month = 1;
-				year += 1;
+				month = 1; year += 1;
 			}
 		}
 		return new Date(day, month, year);
 	}
 
-	static private String[] MONTHS = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
-
-	@UserOperation
-	static public int daysInMonth(int month, boolean leapYear) {
-		return switch (month) {
+	private int daysInMonth() { // Returns the number of days in this Date's month
+		return switch (month()) {
 		case 1, 3, 5, 7, 8, 10, 12 -> 31;
-		case 2 -> 28 + (leapYear ? 1 : 0);
+		case 2 -> 28 + (isLeapYear(year()) ? 1 : 0);
 		default -> 30;
 		};
 	}
 
+	static private String[] MONTHS =
+		{"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+
+	@UserOperation
+	static public boolean isLeapYear(int year) { // Tests whether year is a leap year
+		return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
+	}
+
 	@UserOperation(indeterminate = true)
-	static public Date today() {
+	static public Date today() { // Returns a Date object representing today
 		var today = Calendar.getInstance();
-		return new Date(today.get(Calendar.DAY_OF_MONTH), today.get(Calendar.MONTH) + 1, today.get(Calendar.YEAR));
+		return new Date(today.get(Calendar.DAY_OF_MONTH),
+				today.get(Calendar.MONTH) + 1, today.get(Calendar.YEAR));
 	}
 
 	static public void main(String[] args) {
