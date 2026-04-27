@@ -1,7 +1,9 @@
 \section{Conclusion}
 \label{sec:concl}
 
-We have presented an extension of \GROOVE that enhances the tool's practical usefulness in incorporating data, based on user-defined record types and arbitrary operations. This work was inspired by a feature request.\footnote{Thanks to Reiko Heckel and Adam Machowczyk for their suggestions and feedback}
+We have presented an extension of \GROOVE that enhances the tool's practical usefulness in incorporating data, based on user-defined record types and arbitrary operations. The extension addresses all the concerns identified in \cref{sec:philosophy} (representation, immutability, equality, operations and randomness).
+
+This work was inspired by a feature request.\footnote{Thanks to Reiko Heckel and Adam Machowczyk for their suggestions and feedback}
 
 \subsection{Limitations}
 \label{sec:limitations}
@@ -9,7 +11,7 @@ We have presented an extension of \GROOVE that enhances the tool's practical use
 We list some practical limitations in the current \GROOVE implementation.
 %
 \begin{itemize}
-\item \emph{User types and operations are only supported in the \javaA algebra.} In other words, the choice of algebras (\termA, \bigA, \javaA, \pointA) recalled in the introduction is currently not available for grammars with used-defined types. We expect that the extension to \termA and \pointA will be straightforward; however, to also be compatible with \bigA, the user types and operations would natively have to rely on \code{BigInteger} and \code{BigDecimal} rather than \intT and \doubleT.
+\item \emph{User types and operations are only supported in the \javaA algebra.} In other words, the choice of algebras (\termA, \bigA, \javaA, \pointA) recalled in the introduction is currently not available for grammars with user-defined types. We expect that the extension to \termA and \pointA will be straightforward; however, to also be compatible with \bigA, the user types and operations would natively have to rely on \code{BigInteger} and \code{BigDecimal} rather than \intT and \doubleT.
 
 \item \emph{User types are restricted to \recordT{}s.} This is a choice motivated by the fact that Java \recordT instances are inherently immutable and \recordT{}s have well-defined constructors. We expect that this will not be a limitation in practice.
 
@@ -25,7 +27,7 @@ Lifting this restriction will require a fairly major restructuring of \GROOVE's 
 \end{itemize}
 
 
-\subsection{Related work}
+\subsection{Related Work}
 \label{sec:related}
 
 %The integration of data attributes into graph transformation has been formalised and implemented in different ways over the years. With respect to formalisation, 

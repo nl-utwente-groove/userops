@@ -1,11 +1,11 @@
-\section{Theoretical underpinning}
+\section{Theoretical Underpinning}
 \label{sec:background}
 
 Since this paper is especially meant to introduce a tool extension, we limit the theoretical exposition to the necessary minimum.
 %
 %We use $|\sigma|$ to denote the length of a sequence $\sigma\in S^*$ and $\sigma\proj i$ (for $1\leq i\leq |\sigma|$) to denote its $i$'th element (hence $\sigma=\sigma\proj 1\cdots \sigma\proj{|\sigma|}$). The empty sequence is denoted $\epsilon$. We also write $\power X$ for the powerset of a set $X$.
 
-\subsection{System types and operations}
+\subsection{System Types and Operations}
 \label{sec:system}
 
 The attribute support in \GROOVE is based on multi-sorted algebra. This starts with the concept of a \emph{signature}, being a tuple $\tupof{S,C,O}$ of disjoint sets $S$ (\emph{sorts}), $C$ (\emph{constants}) and $O$ (\emph{operators}); $C$ and $S$ are partitioned into $\setof{C^s}_{s\in S}$ and $\setof{O^s}_{s\in S}$, respectively. \GROOVE offers only primitive sorts, in the form of $S=\setof{\boolS,\intS,\realS,\stringS}$; $C$ consists of literals in Java notation; and $O$ is a set of elementary arithmetic and string manipulation operators.
@@ -25,7 +25,7 @@ Given a signature $\tupof{S,C,O}$ and a set of variables $X$, the set of \emph{t
 An \emph{algebra} based on $\tupof{S,C,O}$ consists of \emph{carrier sets} $D^s$ for all $s\in S$, \emph{values} $v_c\in D^{s_c}$ for all $c\in C$, and \emph{functions} $f_o\colon D_1\times\cdots \times D_{|\sigma_o|} \to D^{s_o}$ for all $o\in O$, where $D_i=D^{\sigma_o\proj i}$ for all $1\leq i\leq |\sigma|$. Given a \emph{valuation} $\val\colon X\to D$ (with $\val(x)\in D^{s_x}$ for all $x\in X$), every term $t\in T^s$ gives rise to a value in $D^s$.
 %inductively gives rise to a function $\sem-_\val\colon T(X)\to D$ such that $\sem t_\val\in D^{s_t}$ for all $t\in T(X)$.
 
-Out of the box, \GROOVE offers four algebras: \termA, where $D^s=T^s$ for all $s\in S$, $\bigA$, where the carrier sets are essentially the mathematical sets of booleans $\Bool$, integers $\Int$, rationals $\Rat$ and strings $\String=\Char^*$ (for the set  $\Char$ of Unicode characters); $\javaA$, where the carrier sets are the values of the Java types $\boolT$, $\intT$, $\doubleT$ and $\stringT$; and finally $\pointA$, for which all carrier sets are singletons. In addition, $\bigA$ and $\javaA$ contain special error values $\bot_s\in D^s$ for each sort $s\in S$ to ensure that all $f_o$ are fully defined; for instance, a term $t_1/t_2$, denoting the division of $t_1$ by $t_2$, yields $\bot_\intS$ respectively $\bot_\realS$ if $t_2$ evaluates to zero.
+Out of the box, \GROOVE offers four algebras: \termA, where $D^s=T^s$ for all $s\in S$; $\bigA$, where the carrier sets are essentially the mathematical sets of booleans $\Bool$, integers $\Int$, rationals $\Rat$ and strings $\String=\Char^*$ (for the set  $\Char$ of Unicode characters); $\javaA$, where the carrier sets are the values of the Java types $\boolT$, $\intT$, $\doubleT$ and $\stringT$; and finally $\pointA$, for which all carrier sets are singletons. In addition, $\bigA$ and $\javaA$ contain special error values $\bot_s\in D^s$ for each sort $s\in S$ to ensure that all $f_o$ are fully defined; for instance, a term $t_1/t_2$, denoting the division of $t_1$ by $t_2$, yields $\bot_\intS$ respectively $\bot_\realS$ if $t_2$ evaluates to zero.
 
 \medskip\noindent
 It may be noted that the above formalisation does not include equations, and thus omits an ingredient that is essential in algebraic reasoning. Indeed, \GROOVE does not offer equation-based analysis capabilities. If operators would have equational specifications, then \termA would not be a valid algebra.
@@ -33,13 +33,13 @@ It may be noted that the above formalisation does not include equations, and thu
 \medskip\noindent
 We will not go into the formalisation of \GROOVE graphs here, except to recall that nodes are taken from a universe that includes the combined carrier sets $D$ (of the selected algebra) as so-called \emph{value nodes}, and edges can have $D$-nodes as their target (but not their source). Rules can contain terms encoded as AST-like graph structures (see \cite{GROOVE-attributes} for the encoding) that include variables as nodes. A \emph{match} of a rule $r$ into a host graph establishes a valuation $\val_r$ for $r$'s variable nodes, which is used to evaluate all terms contained in $r$. Part of the outcome of that evaluation serves as an application condition for $r$, another part determines the values in the target graph. Any combination of host graph $G$ and match $m$ of $r$ into $G$ that (when evaluated) satisfies $r$'s application conditions gives rise, through the usual algebraic pushout construction (see \cite{GT-book,Ehrig-attributes}), to a target graph $H$, which is therefore uniquely determined up to isomorphism. The combined construction is denoted $G\Trans{r,m} H$.
 
-\subsection{User types and operations}
+\subsection{User Types and Operations}
 \label{sec:user}
 
 We introduce a single new sort $\userS$. User-defined operators come in three kinds:
 %
 \begin{itemize}
-\item \emph{Constructors} $u$, with $\sigma_u\in S^*$ and $s_u=\userS$. As the name implies, from a sequence of primitive-sorted input values a constructor returns a unique $\userS$-sorted value, being essentially the \emph{tuple} of input values --- in other words, $u$ is a product operator. Uniqueness here means that the corresponding function $f_u$ is injective and the image sets $\img f_u$ are guaranteed to be disjoint for different constructors $u$.
+\item \emph{Constructors} $u$, with $\sigma_u\in S^*$ and $s_u=\userS$. As the name implies, from a sequence of primitive-sorted input values a constructor returns a unique $\userS$-sorted value, being essentially the \emph{tuple} of input values --- in other words, formally speaking, $u$ is a product operator. Uniqueness here means that the corresponding function $f_u$ is injective and the image sets $\img f_u$ are guaranteed to be disjoint for different constructors $u$.
 
 \item \emph{Accessors} $a_{u,1},\ldots a_{u,n}$ for every constructor $u$ and $1\leq i\leq n=|\sigma_u|$, with $\sigma_{a_i}=\userS$ and $s_{a_i}=\sigma_u\proj i$. The accessor $a_{u,i}$ retrieves the $i$'th element of the tuple constructed by $u$; equationally this can be expressed as $a_i(u(x_1,\ldots,x_n))=x_i$. Outside $\img f_u$, the accessors $a_{u,i}$ are undefined --- or rather, they yield $\bot_\userS$.
 
@@ -50,7 +50,7 @@ Let $U$ be the collection of constructors; then the $\userS$-carrier set is defi
 %
 \[ D^\userS = \textstyle\bigcup_{u\in U} \img f_u \enspace. \]
 %
-This means that all user-defined values can be obtained through construction. In particular, though the ``other operators'' in $O^\userS\setminus U$ also return $\userS$-sorted values, those can always (alternatively) be produced by some $u\in U$, hence can be understood as tuples of which the elements can be retrieved using accessors.
+This means that all user-defined values can be obtained through construction. In particular, though there may be ``other operators'' in $O^\userS\setminus U$ that also return $\userS$-sorted values, those can always (alternatively) be produced by some $u\in U$, hence can be understood as tuples of which the elements can be retrieved using accessors.
 
 \medskip\noindent An important additional feature is that the ``other operators'' may be designated as \emph{indeterminate}, meaning that their result is actually not fixed by their inputs. The prototypical example is a random generator, which has an empty input signature (it takes no arguments) but by its very nature produces an unpredictable result. Algebraically, an indeterminate operator $o\in \idt O$ can be captured by a powerset function $F_o\colon D_1\times\cdots \times D_{|s|} \to (\power{D^{s_o}}\setminus \setof\emptyset)$, rather than a simple function $f_o$ as above; each time $F_o$ is \emph{invoked} on a set of values $v_1,\ldots, v_{|s|}$, it returns a \emph{single} value from $F_o(v_1,\ldots,v_{|s|})$.
 

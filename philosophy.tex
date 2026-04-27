@@ -1,0 +1,55 @@
+\section{Design Considerations and Decisions}
+\label{sec:philosophy}
+
+The extension reported in this paper was motivated by the lack of convenience, reported by users, in modelling structured data using just graph nodes and primitively typed attributes. Some particular concerns are:
+
+\begin{description}
+\item[Representation.] Using nodes and primitive attributes causes all data values to become part of the graph structure, making them less easy to recognise and represent textually. Essentially, a term such as \code{Date(6,6,1964)} is more immediately comprehensible than a \code{\bfseries Date}-typed node with three outgoing \code{\bfseries int}-typed edges.
+
+\item[Immutability.] Manipulating structured data should not modify the existing values but create new ones. For instance, if one adds a year to a given \code{Date}, this results in a new \code{Date} and not in the replacement of the \code{year}-edge. To mimic that behaviour using standard graph transformation, one has to be careful in explicitly creating a new node whenever this occurs.
+
+\item[Equality.] For data types, it is unintuitive to have multiple copies of the same value: if data values correspond to graph nodes, equality should correspond to node identity. This is hard to maintain when relying on standard graph nodes, in particular in light of the previous point: rather than blithely creating a new node whenever a new (structured) data value is required, one has to reuse the node with that new value if it exists, and create one otherwise.
+
+\item[Operations.] A particular structured data type may come with a set of corresponding operations (in object-oriented programming typically provided as methods) for instance, in the case of a \code{Date}, one might want to obtain the next date value or to reason about the number of days since the beginning of the year. If the data type is modelled as part of a graph, there is no obvious way to encode and invoke such operations.
+
+\smallskip
+Note that, since operations offer the possibility to ``wrap'' any complex calculation, they are convenient for primitive as well as structured data.
+\end{description}
+%
+A final point at which the attribute support of \GROOVE was found to be lacking is unrelated to structured data.
+%
+\begin{description}
+\item[Randomness.] All primitive \GROOVE operations are deterministic. This makes it very awkward to model systems that may involve randomness or any other kind of indeterminacy in their behaviour. For instance, the only way to model the roll of a die is in modelling all possible outcomes explicitly, meaning that all resulting behaviours are part of the resulting state space.
+\end{description}
+%
+In addressing these issues, the following questions had to be answered:
+%
+\begin{itemize}
+\item \emph{What kind of data types} should be offered, in addition to the currently available primitive types?
+\item \emph{How should used-defined data types be integrated} into the existing attribute support architecture?
+\item \emph{In what language} should users program their data types and operations?
+\end{itemize}
+%
+Though these questions are not completely independent, we address them one by one.
+%
+\paragraph{Kinds of data types}
+
+An obvious source of inspiration are the data type structures developed for programming languages; see, e.g., \cite{PierceTypes}. Two kinds of data structure stand out as being potentially useful: \emph{records} and \emph{lists}. Other kinds of structured data types, such as \emph{sum types} or \emph{object types}, are reasonably compatible with node types and do not urgently require a different, data-specific solution, whereas the use of more powerful notions such as \emph{function types} is less obvious in the context of graph-based modelling.
+
+The current work focusses on record types; moreover, we have chosen to restrict fields to primitive data types. Both support for arrays and for nested records are left as future work.
+
+\paragraph{Integration.}
+
+The strength of \GROOVE lies in the formal foundation of its models, based on typed attributed graphs, and its capability for state space generation, including automatic isomorphism checking. The extension to user-defined structured data means that the typing of attributes has had to be reconsidered. Ideally, the type system should be able to distinguish between different user types and so catch errors in the invocation of user-defined operators on the wrong user-defined type. However, the solution chosen for now is to group all user-defined types under a single algebraic sort \userS: erroneous invocations are caught at runtime by generating a special ``user error value''.
+
+\paragraph{Language.}
+
+To allow users full flexibility in their implementations, a natural choice has been to offer Java as source language, given that
+\begin{inumerate}
+\item it is also the language of \GROOVE itself,
+\item the native \code{\bfseries record} structure provides a lot of scaffolding,
+\item information about the types and operations can be imported through annotations, and
+\item invocation can be programmed through reflection.
+\end{inumerate}
+
+Moreover, using Java this also enables the reuse of pre-existing code. On the other hand, from a formal reasoning point of view, a disadvantage is that it is impossible to restrict what may happen within user-defined operations: they may easily have side-effects that can lead to unpredictable results, also because there are no guarantees about the precise moment at which \GROOVE invokes them. In other words, the correctness of the state space exploration partially depends on user discipline.

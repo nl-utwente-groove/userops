@@ -19,16 +19,16 @@
 
 User types and operations are defined through annotated Java classes, made available to the JVM upon invoking \GROOVE. Annotations come in two flavours:
 
-\paragraph{\UserType.} This is a class-level annotation, to be used for public \recordT types with all field types taken from the \javaA algebra (\boolT, \intT, \doubleT or \stringT).
+\paragraph{\UserType.} This is a class-level annotation, to be used on public \recordT types with all field types taken from the \javaA algebra (\boolT, \intT, \doubleT or \stringT).
 %
 \begin{lstlisting}
 @UserType
 public record Nm(ty$_1$ fd$_1$, $\dots$, ty$_n$ fd$_n$)
 \end{lstlisting}
 %
-defines an operator $\nm\in O^\userS$ with $\sigma_\nm=s_1\cdots s_n$ as well as operators $\fd_i\in O^{s_i}$ with $\sigma_{\fd_i}=\userS$ for all $1\leq i\leq n$ (where the $s_i\in S$ are the sorts corresponding to the Java types $\ty_i$), together with corresponding functions $f_\nm$, $f_{\fd_1},\ldots, f_{\fd_n}$. In terms of \Cref{sec:user}, $\nm$ is a constructor and $\fd_i$ are accessors.
+defines an operator $\nm\in O^\userS$ with $\sigma_\nm=s_1\cdots s_n$ (where the $s_i$ are the sorts corresponding to the Java types $\ty_i$) as well as operators $\fd_i\in O^{s_i}$ with $\sigma_{\fd_i}=\userS$ for all $1\leq i\leq n$, together with corresponding functions $f_\nm$, $f_{\fd_1},\ldots, f_{\fd_n}$. In terms of \Cref{sec:user}, $\nm$ is a constructor and the $\fd_i$ are accessors.
 
-\paragraph{\UserOperation.} This is a method-level annotation to define ``other operators,'' to be used for public methods in arbitrary public classes. All parameter types as well as the return type are either taken from the \javaA algebra, \emph{or} may be \UserType-annotated records. If the containing class is not a \UserType, the annotated method must be \staticT. Hence there are two cases.
+\paragraph{\UserOperation.} This is a method-level annotation to define ``other operators,'' to be used on public methods in arbitrary public classes. All parameter types as well as the return type are either taken from the \javaA algebra, \emph{or} may be \UserType-annotated records. If the containing class is not a \UserType, the annotated method must be \staticT. Hence there are two cases.
 
 \begin{itemize}
 \item 
@@ -69,7 +69,7 @@ o            & \sigma_o              & s_o    \\
 \dayO        & \userS                & \intS  \\
 \monthO      & \userS                & \intS  \\
 \yearO       & \userS                & \intS  \\
-\end{array}\qquad\begin{array}[t]{l@{{\quad}}c@{{\quad}}c@{{\quad}}c}
+\end{array}\qquad\qquad\begin{array}[t]{l@{{\quad}}c@{{\quad}}c@{{\quad}}c}
 o            & \sigma_o & s_o \\
 \hline
 \toStringO   & \userS   & \stringS \\
@@ -86,7 +86,7 @@ o            & \sigma_o & s_o \\
 \includegraphics[scale=.55,trim={0 10cm 0 0},clip]{figs/system-properties}
 \vspace*{-5mm}
 \end{wrapfigure}
-To use annotation-defined operators, a rule system has to specify the qualified names of the annotated classes in its System Properties. From then on, they can be treated like built-in system operators.
+To actually \emph{use} annotation-defined operators, a rule system has to specify the qualified names of the annotated classes in its System Properties. From then on, they can be treated like built-in system operators.
 
 \Cref{fig:rules} shows two example \GROOVE rules using the operators of \Cref{fig:Date}.
 %
@@ -103,7 +103,7 @@ To use annotation-defined operators, a rule system has to specify the qualified 
 \item \birthR specifies that a \pregnantL person gives birth (and stops being \pregnantL). The newly born \PersonL is a \childL of the first, and its \birthdayL is based on the outcome of the \todayO operator.
 \end{itemize}
 %
-In both rules, the decoration \colorbox{black}{\color{white}0} marks data nodes that serve as \emph{rule parameters} (with number 0, meaning the first --- here: only --- parameter). Parameter values are part of in the transition label when the rule gets applied. An example exploration is shown in \Cref{fig:exploration}: from the start graph on the left, using any of the rule application sequences of the transition system in the middle, eventually the final graph on the right is obtained. The indeterminacy of \todayO causes the outcome of the exploration to depend on the day of execution.
+In both rules, the decoration \colorbox{black}{\color{white}0} marks data nodes that serve as \emph{rule parameters} (with number 0, meaning the first --- here: only --- parameter). Parameter values are part of the transition label when the rule gets applied. An example exploration is shown in \Cref{fig:exploration}: from the start graph on the left, using any of the rule application sequences of the transition system in the middle, eventually the final graph on the right is obtained. The indeterminacy of \todayO causes the outcome of the exploration to depend on the day of execution.
 %
 \begin{figure}[t]%
 \subcaptionbox{Start graph}[.2\textwidth]{\includegraphics[scale=.17]{figs/start}}%
